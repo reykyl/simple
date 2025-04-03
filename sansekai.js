@@ -49,25 +49,28 @@ module.exports = sansekai = async (upsert, sock, store, message) => {
 
     if (isCmd) {
       switch (command) {
-        case "help": case "menu": case "start": case "info":
-          message.reply(`*Whatsapp Bot OpenAI*
+        case "help": 
+        message.reply(`Este es el menu de ayuda`)
+        break;
+        case "menu": case "start": case "info":
+          message.reply(`*WhatsApp Bot OpenAI*
             
 *(ChatGPT)*
-Cmd: ${prefix}ai 
-Tanyakan apa saja kepada AI. 
+Comando: ${prefix}ai 
+Chatea con ChatGPT desde WhatsApp. 
 
 *(DALL-E)*
-Cmd: ${prefix}img
-Membuat gambar dari teks
+Comando: ${prefix}img
+Genera imagenes facilmente
 
 *(Source Code Bot)*
-Cmd: ${prefix}sc
-Menampilkan source code bot yang dipakai`)
+Comando: ${prefix}sc
+Informacion del codigo fuente del bot`)
           break;
-        case "ai": case "openai": case "chatgpt": case "ask":
+                  case "ai": case "openai": case "chatgpt": case "ask":
           try {
             // tidak perlu diisi apikeynya disini, karena sudah diisi di file key.json
-            if (setting.keyopenai === "ISI_APIKEY_OPENAI_DISINI") return message.reply("Apikey belum diisi\n\nSilahkan isi terlebih dahulu apikeynya di file key.json\n\nApikeynya bisa dibuat di website: https://beta.openai.com/account/api-keys");
+            if (setting.keyopenai === "ISI_APIKEY_OPENAI_DISINI") return message.reply("*API de OpenAI desconectada*\n\nPor favor revise el archivo key.json y verifique que sus credenciales sean correctas.\n\nNecesitas una api, visita el siguiente sitio web: \nhttps://beta.openai.com/account/api-keys");
             if (!text) return message.reply(`Chat dengan AI.\n\nContoh:\n${prefix}${command} Apa itu resesi`);
             const chatCompletion = await openai.chat.completions.create({
               messages: [{ role: 'user', content: q }],
@@ -88,7 +91,7 @@ Menampilkan source code bot yang dipakai`)
         case "img": case "ai-img": case "image": case "images": case "dall-e": case "dalle":
           try {
             // tidak perlu diisi apikeynya disini, karena sudah diisi di file key.json
-            if (setting.keyopenai === "ISI_APIKEY_OPENAI_DISINI") return message.reply("Apikey belum diisi\n\nSilahkan isi terlebih dahulu apikeynya di file key.json\n\nApikeynya bisa dibuat di website: https://beta.openai.com/account/api-keys");
+            if (setting.keyopenai === "ISI_APIKEY_OPENAI_DISINI") return message.reply("*API de OpenAI desconectada*\n\nPor favor revise el archivo key.json y verifique que sus credenciales sean correctas.\n\nNecesitas una api, visita el siguiente sitio web: \nhttps://beta.openai.com/account/api-keys");
             if (!text) return message.reply(`Membuat gambar dari AI.\n\nContoh:\n${prefix}${command} Wooden house on snow mountain`);
             const image = await openai.images.generate({ 
               model: "dall-e-3",
@@ -112,7 +115,7 @@ Menampilkan source code bot yang dipakai`)
         }
           break;
           case "sc": case "script": case "scbot":
-           message.reply("Bot ini menggunakan script dari https://github.com/Sansekai/Wa-OpenAI");
+           message.reply("Bot forkeado del repositorio https://github.com/Sansekai/Wa-OpenAI");
           break
         default: {
           if (isCmd && budy.toLowerCase() != undefined) {
